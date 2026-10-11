@@ -15,5 +15,7 @@ services:
         value: file:/app/data/dev.db
       - key: SEED_ON_START
         value: "1"
+      - key: FORCE_SEED
+        value: "0"
       - key: CLIENT_DIST
         value: /app/public

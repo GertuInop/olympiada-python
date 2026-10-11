@@ -11,7 +11,7 @@ services:
       PORT: 3000
       DATABASE_URL: file:/app/data/dev.db
       JWT_SECRET: ${JWT_SECRET:-olympiad-docker-secret-change-me}
-      SEED_ON_START: ${SEED_ON_START:-0}
+      SEED_ON_START: ${SEED_ON_START:-1}
       CLIENT_DIST: /app/public
     volumes:
       - olimp-data:/app/data

@@ -9,6 +9,13 @@ const adapter = new PrismaBetterSqlite3({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
+  const force = process.env.FORCE_SEED === '1' || process.env.FORCE_SEED === 'true';
+  const existing = await prisma.user.count();
+  if (existing > 0 && !force) {
+    console.log(`Seed skip: в БД уже есть ${existing} пользователь(ей). FORCE_SEED=1 для пересоздания.`);
+    return;
+  }
+
   await prisma.submission.deleteMany();
   await prisma.certificate.deleteMany();
   await prisma.registration.deleteMany();
@@ -41,6 +48,7 @@ async function main() {
     data: {
       email: 'student@olymp.local',
       name: 'Иван Участник',
+      lastName: 'Участник',
       password,
       role: 'PARTICIPANT',
     },
@@ -51,6 +59,7 @@ async function main() {
       title: 'Python Sprint #4',
       description: 'Короткая олимпиада по базовому Python: ввод/вывод, условия, циклы.',
       status: 'LIVE',
+      penaltyPercent: 5,
       startsAt: new Date(Date.now() - 30 * 60 * 1000),
       endsAt: new Date(Date.now() + 2 * 60 * 60 * 1000),
       createdById: developer.id,
@@ -96,6 +105,7 @@ async function main() {
       title: 'Алгоритмы для начинающих',
       description: 'Регистрация открыта. Старт через несколько дней.',
       status: 'OPEN',
+      penaltyPercent: 5,
       startsAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
       endsAt: new Date(Date.now() + 48 * 60 * 60 * 1000),
       createdById: developer.id,
@@ -107,6 +117,7 @@ async function main() {
       title: 'Черновик: структуры данных',
       description: 'Внутренний черновик разработчика.',
       status: 'DRAFT',
+      penaltyPercent: 5,
       createdById: developer.id,
     },
   });
@@ -121,10 +132,15 @@ async function main() {
 
   console.log('Seed OK');
   console.log('Accounts (password: password123):');
-  console.log('- admin@olymp.local / ADMIN');
-  console.log('- dev@olymp.local / DEVELOPER');
   console.log('- student@olymp.local / PARTICIPANT');
-  console.log({ admin: admin.id, developer: developer.id, participant: participant.id });
+  console.log('- dev@olymp.local / DEVELOPER');
+  console.log('- admin@olymp.local / ADMIN');
+  console.log({
+    admin: admin.id,
+    developer: developer.id,
+    participant: participant.id,
+    liveOlympiad: olympiadLive.id,
+  });
 }
 
 main()

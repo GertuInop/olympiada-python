@@ -31,6 +31,7 @@ ENV DATABASE_URL=file:/app/data/dev.db
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV CLIENT_DIST=/app/public
+ENV SEED_ON_START=1
 
 RUN npx prisma generate \
   && mkdir -p /app/data
