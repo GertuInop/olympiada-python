@@ -1,8 +1,17 @@
 **/node_modules
 **/dist
 **/.git
+**/.cursor
+**/agent-transcripts
 **/*.db
 **/*.db-journal
 **/.env
+**/.env.*
+!**/.env.example
 **/npm-debug.log
 **/.DS_Store
+**/client/Dockerfile
+**/server/Dockerfile
+docker-compose.yml
+*.md
+client/README.md

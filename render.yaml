@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: olimp
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        value: file:/app/data/dev.db
+      - key: SEED_ON_START
+        value: "1"
+      - key: CLIENT_DIST
+        value: /app/public
