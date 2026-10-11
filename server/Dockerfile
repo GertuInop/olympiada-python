@@ -15,12 +15,12 @@ RUN npm ci
 
 COPY . .
 
-RUN npx prisma generate \
-  && mkdir -p /app/data
-
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV DATABASE_URL=file:/app/data/dev.db
+
+RUN npx prisma generate \
+  && mkdir -p /app/data
 
 EXPOSE 3000
 
