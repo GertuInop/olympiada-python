@@ -7,10 +7,105 @@ datasource db {
 }
 
 model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  password     String
+  name         String?
+  lastName     String?
+  phone        String?
+  organization String?
+  role         String   @default("PARTICIPANT") // PARTICIPANT | DEVELOPER | ADMIN
+  status       String   @default("ACTIVE") // ACTIVE | BLOCKED
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  olympiads       Olympiad[]
+  registrations   Registration[]
+  submissions     Submission[]
+  certificates    Certificate[]
+}
+
+model Olympiad {
+  id             Int      @id @default(autoincrement())
+  title          String
+  description    String?
+  status         String   @default("DRAFT") // DRAFT | OPEN | LIVE | CLOSED | PUBLISHED
+  /// Штраф за каждую неверную посылку: % от баллов задачи (округление вверх)
+  penaltyPercent Int      @default(5)
+  startsAt       DateTime?
+  endsAt         DateTime?
+  createdById    Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  createdBy     User           @relation(fields: [createdById], references: [id])
+  tasks         Task[]
+  registrations Registration[]
+  certificates  Certificate[]
+}
+
+model Task {
+  id            Int      @id @default(autoincrement())
+  olympiadId    Int
+  title         String
+  statement     String
+  referenceCode String?
+  points        Int      @default(100)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  olympiad    Olympiad     @relation(fields: [olympiadId], references: [id], onDelete: Cascade)
+  testCases   TestCase[]
+  submissions Submission[]
+}
+
+model TestCase {
+  id             Int     @id @default(autoincrement())
+  taskId         Int
+  input          String
+  expectedOutput String
+  isSample       Boolean @default(false)
+
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model Registration {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  olympiadId Int
+  status     String   @default("REGISTERED") // REGISTERED | JOINED | COMPLETED
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  olympiad Olympiad @relation(fields: [olympiadId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, olympiadId])
+}
+
+model Submission {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  name      String?
+  userId    Int
+  taskId    Int
+  code      String
+  status    String   @default("PENDING") // PENDING | ACCEPTED | WRONG | ERROR
+  score     Int      @default(0)
+  output    String?
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model Certificate {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  olympiadId Int
+  score      Int
+  issuedAt   DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  olympiad Olympiad @relation(fields: [olympiadId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, olympiadId])
 }

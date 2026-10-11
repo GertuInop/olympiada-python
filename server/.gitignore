@@ -3,3 +3,4 @@ generated/
 *.db
 *.db-journal
 .env
+../.design-extract/

@@ -1,0 +1,83 @@
+:root,
+[data-theme='light'] {
+  --color-primary: #00e5bc;
+  --color-primary-hover: #00c9a5;
+  --color-primary-soft: rgba(0, 229, 188, 0.14);
+  --color-success: #10b981;
+  --color-success-soft: rgba(16, 185, 129, 0.12);
+  --color-warning: #f59e0b;
+  --color-warning-soft: rgba(245, 158, 11, 0.14);
+  --color-danger: #ef4444;
+  --color-danger-soft: rgba(239, 68, 68, 0.12);
+
+  --color-bg: #ffffff;
+  --color-bg-elevated: #ffffff;
+  --color-bg-muted: #f3f5f7;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f8fafb;
+  --color-border: #e4e9ee;
+  --color-border-strong: #cfd8e0;
+
+  --color-text: #1f2a32;
+  --color-text-secondary: #5b6b78;
+  --color-text-muted: #8a9aa8;
+  --color-text-inverse: #ffffff;
+
+  --color-sidebar: #f5f7f9;
+  --color-sidebar-text: #1f2a32;
+  --color-sidebar-active: rgba(0, 229, 188, 0.12);
+  --color-topbar: #00e5bc;
+
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.08);
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-brand: 'Orbitron', 'Inter', sans-serif;
+
+  --sidebar-width: 250px;
+  --content-max: 1180px;
+  --gutter: 28px;
+  --topbar-height: 48px;
+
+  --transition: 160ms ease;
+}
+
+[data-theme='dark'] {
+  --color-primary: #00ffc8;
+  --color-primary-hover: #2affd2;
+  --color-primary-soft: rgba(0, 255, 200, 0.16);
+  --color-success: #34d399;
+  --color-success-soft: rgba(52, 211, 153, 0.16);
+  --color-warning: #fbbf24;
+  --color-warning-soft: rgba(251, 191, 36, 0.16);
+  --color-danger: #f87171;
+  --color-danger-soft: rgba(248, 113, 113, 0.16);
+
+  --color-bg: #0e1a17;
+  --color-bg-elevated: #12201c;
+  --color-bg-muted: #182822;
+  --color-surface: #15241f;
+  --color-surface-hover: #1b2e28;
+  --color-border: #243832;
+  --color-border-strong: #2f4a42;
+
+  --color-text: #f3faf7;
+  --color-text-secondary: #b7cbc3;
+  --color-text-muted: #7f968d;
+  --color-text-inverse: #0e1a17;
+
+  --color-sidebar: #101c19;
+  --color-sidebar-text: #e2f1eb;
+  --color-sidebar-active: rgba(0, 255, 200, 0.14);
+  --color-topbar: #00e5bc;
+
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
